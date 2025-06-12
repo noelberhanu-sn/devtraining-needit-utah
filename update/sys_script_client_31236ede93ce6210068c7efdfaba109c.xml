@@ -3,15 +3,25 @@
         <active>true</active>
         <applies_extended>false</applies_extended>
         <condition/>
-        <description>Spwans email addres of user loaded in in "Requested for email" field</description>
-        <field>active</field>
-        <global>true</global>
-        <isolate_script>false</isolate_script>
+        <description>Use the GetEmail Address Script Include to retrieve the Requested for's email address from the database when the Requested for value changes.</description>
+        <field>u_requested_for</field>
+        <global>false</global>
+        <isolate_script>true</isolate_script>
         <messages/>
-        <name>NeedIt onLoad Example</name>
+        <name>NeedIt Populate Email Field</name>
         <order/>
-        <script><![CDATA[function onLoad() {
-    var getEmailAddr = new GlideAjax('GetEmailAddress');
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+
+  // Modified the if to return if the newValue == oldValue to avoid
+  // unecessary trips to the server
+
+  
+  if (isLoading || newValue === '' || newValue == oldValue) {
+    return;
+  }
+  
+  // Instantiate the GetEmailAddress Script Include 
+  var getEmailAddr = new GlideAjax('GetEmailAddress');
   // Specify the getEmail method
   getEmailAddr.addParam('sysparm_name','getEmail');
   // Pass the Requested for sys_id
@@ -31,22 +41,22 @@
 }]]></script>
         <sys_class_name>sys_script_client</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2017-02-08 17:07:03</sys_created_on>
+        <sys_created_on>2025-06-12 18:35:45</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>139133b10fb43200cd674f8ce1050efb</sys_id>
-        <sys_mod_count>2</sys_mod_count>
-        <sys_name>NeedIt onLoad Example</sys_name>
+        <sys_id>31236ede93ce6210068c7efdfaba109c</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>NeedIt Populate Email Field</sys_name>
         <sys_overrides/>
         <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
         <sys_policy/>
         <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
-        <sys_update_name>sys_script_client_139133b10fb43200cd674f8ce1050efb</sys_update_name>
+        <sys_update_name>sys_script_client_31236ede93ce6210068c7efdfaba109c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-06-12 22:18:25</sys_updated_on>
+        <sys_updated_on>2025-06-12 22:18:37</sys_updated_on>
         <table>x_58872_needit_needit</table>
-        <type>onLoad</type>
-        <ui_type>10</ui_type>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
         <view/>
     </sys_script_client>
 </record_update>
